@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example 4</title>
+    <style>
+      body {
+        padding: 2rem;
+        background: hsl(200 50% 5%);
+      }
+
+      .image-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 50rem;
+        margin-inline: auto;
+      }
+
+      .image-gallery > img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        transition: scale 0.3s ease-in-out, opacity 0.3s ease-in-out, border-radius 0.3s ease-in-out;
+      }
+
+      /* .image-gallery:has(.exceptional-img:hover) {
+         we can also add sudo classes on it if we only hover on img tag with .exceptional-img then apply border on it 
+        border: 3px solid limegreen;
+      }
+      */
+
+      /* .image-gallery:has(img:hover) img {
+         this will select the that element who has .image-gallery class on it and also has img tag inside it with hover state and then apply styles to the inside img tag in that .image-gallery element 
+        border: 3px solid limegreen;
+      }
+      */
+
+      .image-gallery:has(img:hover) img:hover {
+        scale: 1.05;
+        border-radius: 0.5rem;
+      }
+
+      .image-gallery:has(img:hover) img:not(:hover) {
+        opacity: 0.5;
+        scale: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="image-gallery">
+      <img class="exceptional-img" src="./images/foodontable.jpg" alt="" />
+      <img src="./images/car.avif" alt="" />
+      <img src="./images/banana.avif" alt="" />
+      <img src="./images/boxes.webp" alt="" />
+      <img src="./images/child-dice.jpg" alt="" />
+      <img src="./images/child-robot.avif" alt="" />
+      <img src="./images/dice.jpg" alt="" />
+      <img src="./images/rabit.jfif" alt="" />
+      <img src="./images/umbrella.jpeg" alt="" />
+    </div>
+  </body>
+</html>

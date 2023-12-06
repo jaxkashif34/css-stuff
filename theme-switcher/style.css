@@ -1,0 +1,152 @@
+:root {
+  --clr-body-bg: hsl(0 0% 90%);
+  --clr-card-bg: hsl(0 0% 100%);
+  --clr-text: hsl(0 0% 15%);
+  --clr-heading: hsl(0 0% 25%);
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  background: var(--clr-body-bg);
+  color: var(--clr-text);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--clr-heading);
+  line-height: 1.1;
+}
+
+.auto-grid {
+  --min-column-size: 225px;
+  display: grid;
+  gap: clamp(1rem, 5vmax, 1.625rem);
+  /* 
+    The clamp() function in CSS takes three arguments: a minimum value, a preferred value, and a maximum value. Under ideal circumstances (when 5vmax is between 1rem and 1.625rem), the browser will use 5vmax as the gap size
+    However, 5vmax can become smaller than 1rem on small screens or larger than 1.625rem on large screens. To prevent the gap size from becoming too small or too large, we use clamp() to set a minimum value of 1rem and a maximum value of 1.625rem.
+
+    So, if 5vmax is less than 1rem, the browser will use 1rem as the gap size. If 5vmax is more than 1.625rem, the browser will use 1.625rem as the gap size. If 5vmax is between 1rem and 1.625rem, the browser will use 5vmax as the gap size. */
+
+  /* 
+    auto-fill: This fills the row with as many columns as it can fit. So if each column is 200px wide and the container is 600px wide, you'll end up with three columns. If there's not enough items to fill all the columns, you'll end up with empty columns.
+
+    auto-fit: This behaves almost the same as auto-fill, but with one major difference: when there's not enough items to fill all the columns, it will expand the items to fill the grid container. */
+
+  /*
+    Basically it picks which value is smaller among the two.
+    here is how min() function works it is basically used when we want to limit the size of an element to grow and stop at one point when the parent-container width become larger then the solid-value provided in min() function in child container selector and when parent-container width become smaller then the solid-value inside min() then the child element width become equal to the parent width and its start shrinking with the parent-container
+   
+    in max it picks which value is greater among the two 
+    so if we replace min with max then when parent width become greater then the solid-value inside the max() function it starts growing with the parent and when the parent width becomes smaller then The child on which max() function is applied stays at solid-width-value provided in max() function
+*/
+  /* this 100% inside min() is containers 100% */
+  /* minmax() accepts min and max value with comma separated */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min-column-size)), 1fr));
+}
+
+.wrapper {
+  --max-width: 55rem;
+  width: min(100% - 2rem, var(--max-width));
+  margin-inline: auto;
+}
+
+.card {
+  padding: 1rem;
+  background-color: var(--clr-card-bg);
+  border-block-start: 0.5rem solid;
+  border-radius: 0.5rem;
+}
+
+.card > * {
+  margin: 0;
+}
+
+.card :not(:last-child) {
+  /* adding margin bottom of card title */
+  margin-bottom: 1rem;
+}
+
+.visually-hidden {
+  clip: rect(0, 0, 0, 0);
+  /* used to hide some parts of elements and show other parts. these values are just like padding and margin values. start from top and go clockwise. so 0 0 0 0 means hide all the parts of element
+  in this rect if we start decreasing the first and last value the element will start showing from top and from left 
+  and if we start decreasing the second and third value the element will start hiding from right and from bottom */
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.color-picker > fieldset {
+  border: 0;
+  display: flex;
+  gap: 2rem;
+  width: fit-content;
+  background-color: #fff;
+  padding: 1rem 3rem;
+  margin-inline: auto;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.color-picker input[type='radio'] {
+  appearance: none;
+  width: 1.5rem;
+  aspect-ratio: 1;
+  outline: 3px solid var(--radio-color, currentColor); /*second optional value serves as the fallback value if fist value is missing or not reachable then this will apply it could be any value but here it will be a color value at that point i have not define the --radio-color but it's add the default black color to it */
+  border-radius: 50%;
+  outline-offset: 3px; /*this property adds a gap between the element width and the outline */
+}
+
+.color-picker input[type='radio']:checked {
+  background-color: var(--radio-color);
+}
+.color-picker input[type='radio']#light {
+  --radio-color: gray;
+}
+.color-picker input[type='radio']#pink {
+  --radio-color: pink;
+}
+.color-picker input[type='radio']#blue {
+  --radio-color: blue;
+}
+.color-picker input[type='radio']#green {
+  --radio-color: green;
+}
+.color-picker input[type='radio']#dark {
+  --radio-color: #232323;
+}
+
+/* this is where it is applying color to the document by checking if there is an element by specified id (pink, blue...) checked then override the root colors */
+
+:root:has(#pink:checked) {
+  --clr-body-bg: hsl(310 50% 90%);
+  --clr-card-bg: hsl(310 50% 100%);
+  --clr-text: hsl(310 50% 15%);
+  --clr-heading: hsl(310 50% 25%);
+}
+
+:root:has(#blue:checked) {
+  --clr-body-bg: hsl(209 50% 90%);
+  --clr-card-bg: hsl(209 50% 100%);
+  --clr-text: hsl(209 50% 15%);
+  --clr-heading: hsl(209 50% 25%);
+}
+
+:root:has(#green:checked) {
+  --clr-body-bg: hsl(109 50% 90%);
+  --clr-card-bg: hsl(109 50% 100%);
+  --clr-text: hsl(109 50% 15%);
+  --clr-heading: hsl(109 50% 25%);
+}
+
+:root:has(#dark:checked) {
+  --clr-body-bg: hsl(209 50% 10%);
+  --clr-card-bg: hsl(209 50% 5%);
+  --clr-text: hsl(209 50% 90%);
+  --clr-heading: hsl(209 50% 80%);
+}

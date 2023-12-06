@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      div {
+        background-color: lightblue;
+      }
+
+      /* "margin block and padding block" the word block works like apply margin and padding from top or bottom 
+        but word inline means apply margin and padding on left or right side 
+        we have to properties for each margin inline and padding inline with start and end 
+        margin-inline-start
+        margin-inline-end
+        padding-inline-start
+        padding-inline-end
+        the reason for why we can't use the regular margin property is because when there is language direction changes it doesn't work properly like if we want to add the padding to the start when we are in english we use padding-left but when we are in arabic we use padding-right so to solve this problem we use padding-inline-start and padding-inline-end and padding-inline handles the direction of the language
+       */
+
+      div.ex1 {
+        border: solid black 1px;
+        margin-block: 35px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>The margin-block Property</h1>
+
+    <div>A div element with no specified margins.</div>
+    <div>A div element with no specified margins.</div>
+    <div class="ex1">This div element has a margin of 35 pixels on both sides in block direction.</div>
+    <div>A div element with no specified margins.</div>
+    <div>A div element with no specified margins.</div>
+  </body>
+</html>

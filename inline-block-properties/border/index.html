@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        display: grid;
+        place-content: center;
+      }
+      .container {
+        padding: 1rem;
+        border: 5px dashed red; /* this is the border of the container and top border will be overwritten by border-block-start */
+        border-block-start: 3px solid limegreen;
+        writing-mode: vertical-rl;
+        width: 10rem;
+        aspect-ratio: 1/1;
+
+        /* border-inline-start: 3px solid limegreen;
+        writing-mode: vertical-rl; */
+
+        /* this is how border-block-start(bbs) works with writing-mode first let's consider that when we start adding or writing text first it fills the first row then it starts filling the second row then 3rd and so on
+        so means it's going from top to bottom (in default english writing standards) so when we change the writing style means like when writing-mode: vertical-lr; in value vertical means align the paragraph of whatever vertical then after (-) lr or rl means in which direct text will go after filling the first line. 
+        For Example (rl) means right to left and then border-block-start always stays at the top so when we change the writing mode it's looks like top border is also moved but actually it's not moving we are just changing the writing mood and border always stays at top.
+        border-block-start | end always stays at top and bottom respectively
+        border-inline-start | end always stays at left and right respectively
+        and we can also change the border style and width and color and all the other properties of border
+        */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p>some example textsome example text</p>
+    </div>
+  </body>
+</html>

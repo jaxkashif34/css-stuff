@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example 1</title>
+    <style>
+      /* basic styling */
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        padding: 5rem 3rem;
+        background-color: hsl(200, 50%, 5%);
+        color: white;
+      }
+
+      section {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+      }
+
+      section > div {
+        background-color: hsl(200, 20%, 95%);
+        padding: 1rem;
+        box-shadow: 0 0 1rem hsl(0, 0%, 0%/ 0.15);
+      }
+      /* has selector*/
+
+      div:has(h1) {
+        /* select div who has inside h1 element */
+        background-color: hotpink;
+      }
+
+      div:has(p) {
+        /* select div who has inside p element */
+        background-color: limegreen;
+      }
+
+      div:has(p:empty) {
+        /* select div who's p is empty */
+        background-color: firebrick;
+      }
+
+      div:has(p.fancy-paragraph) {
+        /* select div who's p has class fancy-paragraph */
+        background-color: gold;
+      }
+
+      /* if div has a direct child of a then change the background color 
+      so in this case we don't have one so it will not change the background color
+      */
+      div:has(> a) {
+        background-color: blueviolet;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Example 1 (there are others example also)</h1>
+    <section>
+      <div>
+        <h1>This div has a title</h1>
+      </div>
+      <div>
+        <p>This div has a regular paragraph</p>
+      </div>
+      <div>
+        <p></p>
+      </div>
+      <div>
+        <p class="fancy-paragraph">This div has a paragraph with class on it</p>
+      </div>
+      <div>
+        <p>Lorem ipsum dolor <a href="#">sit amet consectetur adipisicing elit.</a> At cumque dolor incidunt</p>
+      </div>
+      <div>
+        <p>This div has a regular paragraph</p>
+      </div>
+      <hr />
+    </section>
+  </body>
+</html>

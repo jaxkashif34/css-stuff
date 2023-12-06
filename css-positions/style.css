@@ -1,0 +1,178 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+header {
+  /* light red color */
+  background-color: #ff4d4d;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 2rem;
+  padding-left: 4rem;
+}
+
+header :is(p, span) {
+  color: #f1f1f1;
+  font-size: 1.5rem;
+  fill: #f1f1f1;
+}
+
+.container {
+  padding: 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3rem;
+}
+
+.page-title {
+  margin-bottom: 2rem;
+}
+
+article {
+  display: flex;
+  column-gap: 2.5rem;
+  border: 2px solid #ff4d4d;
+}
+
+article > div > :is(:not(h1)) {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+article > div > :is(h1) {
+  margin-bottom: 2rem;
+}
+
+aside {
+  padding: 1.5rem 2rem;
+  margin-right: 2rem;
+}
+
+aside h1 {
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+aside p {
+  line-height: 1.5;
+}
+
+/* **************** basic styling **************** */
+
+/* **************** position: static **************** */
+
+.page-title {
+  /* when we declare to position: static; it will not work  because it is the default position of almost all elements and we only use it for example when we change the position to something else and then after animation or when using media query we want to go back to its default position and also top, bottom, left, and right property will also not work and z-index also not gonna work */
+  position: static;
+  /* these will not gonna work */
+  z-index: -999;
+  top: 0;
+  bottom: 124rem;
+  left: 0;
+  right: 34rem;
+}
+
+/* **************** position: relative **************** */
+
+.article-title {
+  /* when we set to position relative it seems like nothing happens to the element but when we apply top, bottom, left and right property it moves the element leaving the empty space where it initially was (original space is maintained) and other content will not gonna take its space (seems like other content is not aware that the upper element is moved from its position) we can also do stacking (with z-index) with position relative */
+  position: relative;
+  background-color: #ff4d4d;
+  color: #f1f1f1;
+  /* these will not gonna work */
+  z-index: -1;
+  top: 1rem;
+  bottom: 0;
+  left: 6rem;
+  right: 0;
+}
+
+/* **************** position: absolute **************** */
+
+.article-title {
+  /* in position absolute we are pulling elements from out of the flow unlike in relative it reserves the space of an element but in position absolute it didn't reserve the space
+    Note: when we have multiple position absolute elements nested inside one question comes in mind is then on which element will all the position absolute elements align to or relative to?
+    Answer: each position absolute element will align to its nearest position (other then static) can be any position element (if there is all of them are static then it will align to the body element or nearest relative element ) 
+    after setting position absolute element will no longer a block level element and it will shrink to its content then we have to assign the width of an element and we can also do stacking (with z-index) with position absolute */
+  position: relative;
+  background-color: #ff4d4d;
+  color: #f1f1f1;
+  /* these will not gonna work */
+  z-index: -1;
+  top: 1rem;
+  bottom: 0;
+  left: 6rem;
+  right: 0;
+}
+
+/* **************** position: fixed **************** */
+
+article {
+  position: relative; /* setting position to relative so that we can observer that (position fixed not behave the same to absolute when parent set to relative) */
+}
+
+aside {
+  /* there is a some similarity between absolute and fixed 
+    element shrink to its content we have to give width to it
+    like in absolute it will not gonna reserve the space and other content will occupy its space
+    position fixed not behave the same to absolute when parent set to relative it will still consider the viewport as its parent
+    padding and margin will still works 
+    */
+  /* position: fixed; un-comment this when testing 
+    width: 100%; 
+   */
+  /* this will not work as expected */
+  top: 0;
+  left: 0;
+  /* we can also set to left: 0; and right: 0;  this will behave the same as width: 100%; 
+    left: 0;
+    right: 0; */
+}
+
+/* **************** position: sticky **************** */
+
+.primary-header {
+  /* it's a regular element until it sticks
+     best use case to stick the navbar to the top of the page and it behaves like a block level element 
+    and it didn't move out of the flow and we must use the z-index property to make it on top of other elements
+    we can also set top to -ve value to hide the element (usually navbar)
+     */
+  /* position: sticky; */
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/*
+
+items will not escape from its container and if we scroll the page then we notice that aside will also move to the top when it's parent height finishes and even when we remove the relative position from its parent it will still behave the same and it will not escape from its container and everything works
+
+one problem people runs into is when set to sticky it will not stick to the top 
+this is because usually in that case we might use display:flex or grid; and in that case it's child are stretched to it's parent height and when we scroll that child height is not over yet that's why it is not sticking to the top so we have to set the property on child of align-self:start; by doing this it will work as expected*/
+
+
+aside {
+  position: sticky;
+  background-color: aquamarine;
+  align-self: flex-start;
+  top: 0;
+  left: 0;
+  /* z-index: 1; */
+}
+
+/* strange things that can break your positioning */
+
+/* as we know that when we don't set position relative to the parent (and child to absolute or fixed) it's children will behave according to the body or upper parent but when we give some properties (filter::grayscale(1), transform, perspective it usually happens when doing animations) to the parent the children behaves like we set the position relative to the parent even though we didn't set the position relative to the parent  
+the solution is just move out that child element from that parent and put it in the body element or any other parent element and it will might work
+*/

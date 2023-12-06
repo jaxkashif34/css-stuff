@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      div {
+        background-color: rgb(239, 135, 88);
+        width: 25%;
+        height: 200px;
+        float: left; /*we are using float here cuz we want the other divs comes around the center div so that we can test our maring-inline property */
+      }
+
+      /* to see how and why we use margin and padding line checkout ./margin-block.html file */
+      #ex1 {
+        background-color: lightblue;
+        border: solid black 1px;
+        margin-inline: 35px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>The margin-inline Property</h1>
+
+    <div>A div element with no specified margins.</div>
+
+    <div id="ex1">This div element has a margin of 35 pixels on both sides in the inline direction.</div>
+
+    <div>A div element with no specified margins.</div>
+  </body>
+</html>
