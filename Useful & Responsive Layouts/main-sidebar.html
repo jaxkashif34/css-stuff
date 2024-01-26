@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Grid Trick</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f1f1f1;
+      }
+      .container {
+        min-width: 50vw;
+        padding: 2rem;
+        border: 2px solid skyblue;
+        gap: 1rem;
+        /* so sometimes we are working with a main content and a sidebar */
+
+        display: flex;
+        /* at this point now its is giving us what we want */
+        align-items: start;
+        /* make the height of the children adjust to its content */
+        flex-wrap: wrap;
+      }
+
+      .container .child {
+        outline: 2px solid red;
+      }
+
+      /* now basically when we run out of the room the flex-wrap kicking in */
+      .container > :first-child {
+        /* flex-basis is basically the min-width of element (the smallest the element would allowed to)*/
+        flex-basis: 500px;
+        /* now we have extra space left in the container for that */
+        flex-grow: 1;
+
+        /* so after the we have a problem of that the both main (child-1) and sidebar 
+        (child-2) grows at same rate which is not what we want so for that we can play a little hackery
+        we will set the flex-grow of main to very large and remain the 1 on sidebar by doing this 
+        the rate of growth on main become very large compare to the sidebar */
+
+        flex-grow: 999;
+
+      }
+
+      .container > :last-child {
+        flex-basis: 300px;
+        /* and we can also allow sidebar to grow when its wrapped under the first child */
+        flex-grow: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="child">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita quod
+        quo illum, nesciunt ipsam nihil nam voluptatibus, sunt velit in quam!
+        Eos delectus temporibus eaque minima blanditiis non porro, officiis
+        quidem ullam, fugit totam sed. Quaerat quasi veritatis eveniet ab! Hic
+        sunt, nemo culpa aliquid iusto dicta commodi quas voluptatibus deserunt
+        voluptates, corrupti minus illo doloremque labore sed eum! Ea nisi autem
+        nihil ratione fugit nam, esse molestiae cumque dolorum dolorem excepturi
+        vel consequatur a delectus quibusdam rem magnam voluptatibus ipsa veniam
+        dignissimos ipsum omnis inventore, tenetur fugiat. Debitis, perferendis!
+        Vel, tempora soluta eaque nam nostrum sequi! Laborum ratione possimus
+        dolorum libero assumenda enim illo magnam suscipit, repudiandae, quis
+        accusantium voluptatum sunt alias mollitia laboriosam. Libero natus ab
+        corporis dicta eveniet magni optio quia ad, eius dolorum amet modi, odio
+        facere in. Ipsum reprehenderit illo rerum nesciunt culpa ea, distinctio
+        iusto voluptates reiciendis itaque totam vel officia dolore tempore
+        veniam odit. Modi, maiores quisquam aliquam cum nihil sit sed minus
+        libero pariatur. Sint fuga eaque veritatis deleniti ipsum a ratione quas
+        necessitatibus rerum recusandae beatae nam nostrum vel ducimus odio
+        excepturi, expedita consequatur doloremque magnam odit eos! Amet dolores
+        necessitatibus, ullam obcaecati, facilis nihil rem iusto maxime alias,
+        architecto quae!
+      </div>
+      <div class="child">
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque, nobis
+        expedita quo reiciendis enim doloremque placeat odio laboriosam
+        doloribus beatae delectus ullam praesentium natus distinctio voluptates
+        maiores quam a amet quasi ex maxime. Commodi deleniti quisquam dolores
+        dolore tempora, iusto illum a nesciunt animi nisi, totam sint
+        perferendis veniam suscipit.
+      </div>
+    </div>
+  </body>
+</html>

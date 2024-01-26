@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Grid Trick</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f1f1f1;
+      }
+      .container {
+        --gap: 1rem;
+        min-width: 50vw;
+        padding: 2rem;
+        border: 2px solid skyblue;
+        gap: var(--gap);
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: 100%;
+        /* at this point they will get over flow out of the container */
+        /* so now we can make them scrollable within the container */
+        overflow-x: scroll;
+
+        /* trick */
+        /* by this the child element will move to the next if we scroll more than 50% of child */
+        scroll-snap-type: x mandatory;
+        /* we can make little more beautiful by adding a padding and a simple padding is not work here */
+
+        scroll-padding: var(--gap);
+
+        grid-auto-columns: calc((50% - var(--gap)) / 2);
+      }
+
+      .container > .child {
+        scroll-snap-align: start;
+        background-color: #fff;
+        padding: 1rem;
+        border: 2px solid skyblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+    </div>
+  </body>
+</html>

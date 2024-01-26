@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>More Flexible Child</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f1f1f1;
+      }
+      .container {
+        min-width: 80vw;
+        padding: 2rem;
+        border: 2px solid skyblue;
+        gap: 0.5rem;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .container > .child {
+        flex: 1 1 10rem;
+        /* so here we are saying that the flex-grow should be 1 and flex-shrink should be 1 and the flex-basis should be 10rem */
+        /* so now the child elements will grow and shrink but the basis will be 10rem */
+        border: 1px solid red;
+        padding: 1rem;
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+    </div>
+  </body>
+</html>

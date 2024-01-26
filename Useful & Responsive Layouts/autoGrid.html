@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Grid Trick</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f1f1f1;
+      }
+      .container {
+        --min-column-size: 10rem;
+        min-width: 80vw;
+        padding: 2rem;
+        border: 2px solid skyblue;
+        gap: 0.5rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+        /* so this works fine but when the screens size become too small this cause a
+        problem and overflowing the  child out of the container so to remove this we can use a
+        simple trick*/
+        grid-template-columns: repeat(auto-fit, minmax(min(10rem, 100%), 1fr));
+
+        /* so now we are saying to the browser that when you are choosing the min-value
+        choose 10rem if its smaller (when the container width is greater then 10rem)
+        and choose 100% when 100% of the container is smaller than 10rem (when the screen size
+        become too small) then it will fit the child elements to the 100% or the container
+        avoid that overflow issue we faced in the previous example*/
+
+        /* we can also make a variable of the min child width (column size) */
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(min(var(--min-column-size), 100%), 1fr)
+        );
+
+        /* if you want the similar behavior but little more flexible the see the more-flexible file */
+      }
+
+      .child {
+        border: 1px solid red;
+        padding: 1rem;
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+      <div class="child"></div>
+    </div>
+  </body>
+</html>
