@@ -1,0 +1,127 @@
+html {
+  color-scheme: dark;
+}
+
+body {
+  font-family: system-ui;
+  font-size: 2.5rem;
+  display: grid;
+  min-block-size: 100dvh;
+  place-content: center;
+}
+
+nav ul {
+  --_gap: 2rem;
+
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  overflow: hidden;
+  padding: calc(var(--_gap) / 2);
+  position: relative;
+}
+
+nav li:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: orange;
+  left: 0;
+  bottom: 0rem; /*we have applied overflow:hidden on nav li and we also moved the 
+  after to bottom so that's why it will not show in order to show i'm setting it to 0rem from -1rem*/
+
+  translate: var(--_translate, 0);
+  /*scale: x-axis y-axis;*/
+  scale: 0 1; /*Previous*/
+  scale: var(--_width, 0) 1; /*Latest*/
+  transition: scale 300ms var(--_scale-delay, 0ms),
+    translate 500ms var(--_transition-delay, 0ms);
+}
+
+nav li:hover::after {
+  /*Previous*/
+  scale: 1 1;
+}
+nav li:hover,
+nav li:focus-within /*when focus with tab it will also work*/
+ {
+  /*Latest*/
+  /*the way this is working is that basically we create a --_width property a local property
+  and the just for our understand we also add (_) so that we know that it's a local property
+  and that local width property is under the scope of li and we assign that width property 
+  to scale so like we did in react of js just update the variable and it will apply the 
+  value of that variable everywhere where it is being used so this is exactly what is happening 
+  here we just update the --_width variable
+  */
+  --_width: 1;
+}
+
+/* General OverView: 
+1)on which li we are currently hovered we are gathering the 
+next or previous li's underline to the hovered underline
+2) so when we move on either direction right or left we are 
+pulling the the underline of before hovered li's to the current hovered li
+
+for example: if we are hovered on 3rd li then 3rd li will pull the both underlines
+of 2nd li and 4th li toward it self so by doing this when we move to the 4th li
+then 4th li also must have to pull from both side then this gives the feel like
+underline is growing from left side because we come from 3rd to 4th (left to right)
+and if we go from 3rd to 2nd then it will be same but in reverse and all of these
+is doing with these two classes
+(nav li:hover + li::after) (nav li:has(+ :hover)::after)
+*/
+
+nav li:hover + li {
+  /*Previous*/
+  --_translate: -100%;
+}
+
+@supports selector(:has(h1)) {
+  /*checks if supported then applies and if doesn't then don't*/
+  nav li:hover + li {
+    /*if we hover on li then these styles will apply to next li*/
+    /* Observe it like when we are moving from left -> right li
+     we are setting -100% by doing this the underline will move fully back to previous li and we 
+    set the overflow:hidden and it looks like the width of li is reducing but it is actually 
+    hiding under the previous li and when we move to the that li whose underline if hidden to 
+    the current li then it looks like the width of underline is increased from left side*/
+    --_translate: -100%;
+    --_scale-delay: 300ms; /*adding a scale delay so that it will not start getting smaller 
+    before moving to the next li*/
+    --_translate-delay: 200ms;
+  }
+
+  nav li:has(+ :hover)::after {
+    /*Previous*/
+    translate: 100%;
+  }
+
+  nav li:has(+ :hover) {
+    /*Latest*/
+    /*when hover on a li it will check if the next li has hover state if it does then 
+    apply styles to the previous to hover li otherwise not*/
+    /* and move the underline of previous-to-hover-li fully ahead to the hovered-li */
+    --_translate: 100%;
+    --_scale-delay: 300ms;
+    --_translate-delay: 200ms;
+  }
+}
+
+nav a {
+  color: inherit;
+  opacity: 0.7;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  position: relative;
+}
+
+nav a:hover,
+nav a:focus-visible {
+  opacity: 1;
+}
